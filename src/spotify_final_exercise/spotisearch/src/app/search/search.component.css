@@ -1,0 +1,14 @@
+#search-container{
+  border-radius: 10px;
+  width: 100%;
+}
+
+#submit{
+width: 10%;
+
+}
+#search {
+  width: 90%;
+  font-size: 1em;
+  padding: 0 10px;
+}

@@ -1,0 +1,21 @@
+section {
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+#sign_up_form {
+    display: flex;
+    justify-content: center;
+}
+
+#sign_up_form fieldset div {
+    margin:10px; 
+}
+
+#sign_up_form fieldset div label[for=bio], #bio{
+    display: inline-block;
+    vertical-align: middle; 
+}

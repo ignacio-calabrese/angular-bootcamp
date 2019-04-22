@@ -1,0 +1,46 @@
+<div id="search-container">
+  <button type="submit"><i class="fa fa-search"></i></button>
+  <input type="search" [formControl]="search" (keyup.enter)="onKey($event)" name="search" id="search" placeholder="{{placeholder}}">
+  <div id="results" style="height:30px; text-align:center">
+      <span id="loading" style="display:none">Buscando...</span>
+      <span id="empty" style="display:none">No he encontrado nada.</span>
+  </div>
+</div>
+{{search.value}}
+
+<script>
+  $(function(){
+      var $loading = $('#loading');
+      var $empty = $('#empty');
+      var $items = $("span");
+
+      $('#filter').on('input', function() {
+          var text = $(this).val().trim().toLowerCase();
+          if( text.length < 3 ) {
+              $items.hide();
+              $loading.hide();
+          } else {
+              $empty.hide();
+              $loading.show();
+              delay(function () {
+                  $items.hide();
+                  $("span[title*='" + text + "']").each(function () {
+                      $(this).show();
+                      $loading.hide();
+                  });
+                  if( $("span[title*='" + text + "']").length == 0 )
+                      $empty.show();
+              }, 1000);
+          }
+      });
+
+      // delay function
+      var delay = (function(){
+          var timer = 0;
+          return function(callback, ms){
+              clearTimeout (timer);
+              timer = setTimeout(callback, ms);
+          };
+      })();
+  });
+</script>

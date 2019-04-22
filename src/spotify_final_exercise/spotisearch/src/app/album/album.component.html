@@ -1,0 +1,40 @@
+<app-header-image-search></app-header-image-search>
+
+<section class="content">
+    <img src="" alt="Album">
+    <div class="description">
+      <h1>Album name</h1>
+      <h3>Artist name - Album year</h3>
+    </div>
+
+    <nav>
+      <a [routerLink]="['/']">Home</a>
+      <a [routerLink]="['/Artists']">Artists</a>
+      <a [routerLink]="['/Artists/Artist']">Artist name</a>
+      <a [routerLink]="['/Artists/Artist/Album']">Album name</a>
+
+    </nav>
+
+</section>
+
+
+<section class="content">
+  <div id="cdList">
+
+    <div id="cdsTables">
+      <table class="cdsTable">
+        <tr>
+          <th colspan="2">CD N°</th>
+        </tr>
+        <tr>
+          <td class="songName">Song name</td>
+          <td class="addToFavourite">
+              <i class='fas fa-star'></i>
+              <i class='far'>&#xf005;</i>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</section>

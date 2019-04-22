@@ -1,0 +1,35 @@
+.content {
+  display: block;
+  margin: 0 auto;
+  padding: 5% 10%;
+  border: 0.5em solid black;
+}
+
+.description{
+  width: 50%;
+}
+
+.cdsTable{
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.cdsTable tr th {
+  text-align: left;
+  border: 1px solid black;
+}
+
+.songName {
+  text-align: left;
+  border: 1px solid black;
+  border-right: none;
+}
+.addToFavourite {
+  text-align: right;
+  border: 1px solid black;
+  border-left: none;
+}
+
+
+

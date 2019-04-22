@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Take this file and open it on a browser, then open the console
+    inside developer tools -->
+    <script>
+        (function(){
+            "use strict";
+    
+            let button1 = document.createElement("button");
+            button1.innerHTML = "Button 1";
+            button1.addEventListener("click", () => {
+                alert("You pressed the button 1");
+            });
+            button1.addEventListener("mouseover", () => {
+                button1.style.backgroundColor="red";
+            });
+            button1.addEventListener("mouseout", () => {
+                button1.style.backgroundColor="";
+            });
+            document.body.appendChild(button1);
+
+            let button2 = document.createElement("button");
+            button2.innerHTML = "Button 2";
+            button2.addEventListener("click", () => {
+                alert("You pressed the button 2");
+            });
+            button2.addEventListener("mouseover", () => {
+                button2.style.backgroundColor="green";
+            });
+            button2.addEventListener("mouseout", () => {
+                button2.style.backgroundColor="";
+            });
+            document.body.appendChild(button2);
+
+            let button3 = document.createElement("button");
+            button3.innerHTML = "Button 3";
+            button3.addEventListener("click", () => {
+                alert("You pressed the button 3");
+            });
+            button3.addEventListener("mouseover", () => {
+                button3.style.backgroundColor="blue";
+            });
+            button3.addEventListener("mouseout", () => {
+                button3.style.backgroundColor="";
+            });
+            document.body.appendChild(button3);
+
+            let button4 = document.createElement("button");
+            button4.innerHTML = "Button 4";
+            button4.addEventListener("click", () => {
+                alert("You pressed the button 4");
+            });
+            button4.addEventListener("mouseover", () => {
+                button4.style.backgroundColor="grey";
+            });
+            button4.addEventListener("mouseout", () => {
+                button4.style.backgroundColor="";
+            });
+            document.body.appendChild(button4);
+
+            let p = document.createElement("P")
+            window.addEventListener("mouseover", (position) => {
+                p.innerHTML = "position X = " + position.clientX + " , position Y = " + position.clientY;
+            });
+            document.body.appendChild(p);
+
+            
+        })()
+    </script>
+    
+    <!-- Now it's your turn to make some changes
+        - Draw some buttons, make your way between the click events and let me know they are pressed
+        - What other events are you familiar with? Show it
+    
+        ****************************************************
+        ****               BONUS POINTS                 ****
+        ****      keep me informed of the pointer's     ****
+        ****      position, make it show on screen      ****
+        ****************************************************
+    -->
+    
+</body>
+</html>

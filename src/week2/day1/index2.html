@@ -1,0 +1,84 @@
+<!-- Take this file and open it on a browser, then open the console
+    inside developer tools -->
+<script>
+    class Animal {
+        constructor() {
+            this.type;
+            this.name;
+            this.age;
+
+        }
+        
+        talk() {
+            console.log(`Hi, I'm an Animal, but also a ${this.type}`);
+        };
+    
+        getType() {
+            return this.type;
+        };
+    
+        setType(type) {
+            this.type = type;
+        };
+    
+        getName() {
+            return this.name;
+        };
+    
+        setName(name) {
+            this.name = name;
+        };
+    
+        getAge() {
+            return this.age;
+        };
+    
+        setAge(age) {
+            this.age = age;
+        };
+    
+        description() {
+            console.log(`My name is ${this.name} and I'm ${this.age} years old.`);
+        };
+    };
+
+
+    class Dog extends Animal {
+        constructor() {
+            super();
+        }
+
+        description() {
+            console.log(`I'm a dog, my name is ${this.name} and I'm ${this.age} years old.`);
+        }
+    };
+    
+    let rabbit = new Animal();
+    rabbit.setType("Rabbit");
+    rabbit.talk();
+    rabbit.setName('Rob');
+    rabbit.setAge(2);
+    rabbit.description();
+
+    let dog = new Dog();
+    dog.setType("Dog");
+    dog.talk();
+    dog.setName('Joe');
+    dog.setAge(12);
+    dog.description();
+
+</script>
+
+<!-- Now it's your turn to make some changes
+    - Refactor the previous code to use getters and settters
+    - Add at least 2 more properties
+    - Add at least 2 more methods
+    - Create a new class that inherits from Animal
+    - Override one of the methods you previously defined
+
+    ****************************************************
+    ****               BONUS POINTS                 ****
+    ****      MAKE A 2nd VERSION USING ES6 CLASSES  ****
+    ****                                            ****
+    ****************************************************
+-->

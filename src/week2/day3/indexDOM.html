@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Take this file and open it on a browser, then open the console
+        inside developer tools -->
+    <script>
+        (function(){
+            "use strict";
+    
+            let div = document.createElement("div");
+            document.body.appendChild(div);
+            
+            let p= document.createElement("p");
+            p.innerHTML= "Press the button and create  list elements";
+            div.appendChild(p);
+    
+            let button = document.createElement("button");
+            button.innerHTML = "Create";
+            div.appendChild(button);
+
+            let ol= document.createElement("ol");
+            div.appendChild(ol);
+
+            button.addEventListener("click", () => {
+                let number = prompt("How many elements do yoy want to create?" , "1");
+                for(let i = 0; i < number; i++){
+                    let li = document.createElement("li"); 
+                    li.innerHTML = `Item number ${i+1}`;               
+                    ol.appendChild(li);
+                }
+            });
+            
+            let canvas = document.createElement("canvas"); 
+            canvas.setAttribute("id", "drawing");
+            canvas.innerHTML = "Your browser does not support canvas";
+            canvas.width = 500;
+            canvas.height = 300;
+            canvas.style ="border: 1px solid black;";           
+            div.appendChild(canvas);
+
+            let drawing = document.getElementById("drawing");
+            let ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(drawing.width/2, drawing.height/2, 60, 0, 2 * Math.PI);
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(drawing.width/2, drawing.height/2, 40, 0, 2 * Math.PI);   
+            ctx.fillStyle = "blue";
+            ctx.fill();
+})()
+    </script>
+    
+    <!-- Now it's your turn to make some changes
+        - Add at least 2 DOM elements, via code, DOH
+        - Make a button, ask a quantity and add those elements
+    
+        ****************************************************
+        ****               BONUS POINTS                 ****
+        ****  Keep it funny, make a list, do a drawing  ****
+        ****      show me you can dominate the DOM      ****
+        ****************************************************
+    -->
+    
+</body>
+</html>
+
