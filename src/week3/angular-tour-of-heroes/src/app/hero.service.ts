@@ -12,8 +12,7 @@ const httpOptions = {
 @Injectable()
 
 export class HeroService {
-
-  private heroesUrl = 'api/heroes';  // URL to web api
+  private heroesUrl = 'api/heroes';
 
   constructor(
     private http: HttpClient,
@@ -81,7 +80,7 @@ export class HeroService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
