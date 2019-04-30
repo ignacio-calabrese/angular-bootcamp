@@ -1,10 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SpotifyServiceService } from './spotify-service.service';
+import { SpotifyService } from './spotify-service.service';
 import { SearchComponent } from './search/search.component';
 import { ArtistsListComponent } from './artists-list/artists-list.component';
 import { HomeComponent } from './home/home.component';
@@ -15,13 +16,10 @@ import { ArtistComponent } from './artist/artist.component';
 import { AlbumComponent } from './album/album.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import {NoimagePipe} from './image.pipe';
 
 const routes: Routes = [
-  { path: '*', redirectTo: '/', pathMatch: 'full' },
-  { path: '', component: HomeComponent },
-  { path: 'Artists', component: ArtistsListComponent},
-  { path: 'Artist', component: ArtistComponent},
-  { path: 'Album', component: AlbumComponent },
+  
 ];
 
 @NgModule({
@@ -33,15 +31,17 @@ const routes: Routes = [
     ArtistsListComponent,
     HomeComponent,
     ArtistComponent,
-    AlbumComponent
+    AlbumComponent,
+    NoimagePipe
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
-  providers: [SpotifyServiceService],
+  providers: [SpotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

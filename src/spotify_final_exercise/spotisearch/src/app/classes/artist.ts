@@ -1,16 +1,11 @@
-import { Album } from './album';
-export class Artist {
-    private id: string;
-    private name: string;
-    private gender: string;
-    private logoURL: string;
-    private albums: Array<Album>;
+import { URLs } from './urls';
 
-    constructor(id: string, name: string, gender: string, logoURL: string, albums: Array<Album>) {
-      this.id = id;
-      this.name = name;
-      this.gender = gender;
-      this.logoURL = logoURL;
-      this.albums = albums;
-    }
-  }
+export class Artist {
+  external_urls: URLs; // Known external URLs for this artist.
+  href: string; // A link to the Web API endpoint providing full details of the artist.
+  id: string;	// The Spotify ID for the artist.
+  name: string; // The name of the artist
+  type: string; // The object type: "artist"
+  uri: string; // The Spotify URI for the artist.
+}
+

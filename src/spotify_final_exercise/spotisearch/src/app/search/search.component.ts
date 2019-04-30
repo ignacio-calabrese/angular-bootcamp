@@ -1,7 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { filter, map } from 'rxjs/operators';
-import { SpotifyServiceService } from './../spotify-service.service';
+import { filter, map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { Artist } from '../classes/artist';
+import { Album } from '../classes/album';
+import { Track } from '../classes/track';
+import { SpotifyService } from './../spotify-service.service';
+import { Location } from '@angular/common';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {NoimagePipe} from '../image.pipe';
 
 @Component({
   selector: 'app-search',
@@ -10,30 +17,62 @@ import { SpotifyServiceService } from './../spotify-service.service';
 })
 export class SearchComponent implements OnInit {
   @Input() placeholder: string;
-  search = new FormControl('');;
-  SpotifyServiceService: SpotifyServiceService;
-  results: any[] = [];
 
-  constructor() { }
+
+  artists: Artist[] = [];
+  albums: Album[] = [];
+  tracks: Track[] = [];
+
+  constructor(private SpotifyService: SpotifyService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location ) { }
+
 
   ngOnInit() {
-    // this.search = 'the';
-    // this.SpotifyServiceService.searchArtist(this.search);
-  }
-  onKey($event) {
-    this.search.setValue($event.target.value);
-    // console.log($event.target.value);
-    // return this.search.value;
-    this.SpotifyServiceService.searchArtist('the').subscribe(results => {
-      console.log(results);
-    });
-    console.log(this.SpotifyServiceService.searchArtist('the'));
+    // this.SpotifyService.getToken();
+
   }
 
-  getArtist() {
-    this.SpotifyServiceService.searchArtist('the').subscribe(results => {
-      console.log(results);
-    });
-}
+  searchAll(term: string) {
+    this.searchByArtists(term);
+    this.searchByAlbums(term);
+    this.searchByTracks(term);
+  }
+
+  searchByArtists(artists: string) {
+    this.SpotifyService.getArtists(artists).pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe((data): any => {
+          console.log(data);
+          this.artists = data;
+        });
+  }
+
+  searchByAlbums(albums: string) {
+    this.SpotifyService.getAlbums(albums).pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe((data): any => {
+          console.log(data);
+          this.albums = data;
+        });
+  }
+
+
+  searchByTracks(tracks: string) {
+    this.SpotifyService.getTracks(tracks).pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe((data): any => {
+          console.log(data);
+          this.tracks = data;
+        });
+  }
+
+  searchEnter(term: string) {
+    this.router.navigate(['/Artists/' + term ]);
+  }
 
 }

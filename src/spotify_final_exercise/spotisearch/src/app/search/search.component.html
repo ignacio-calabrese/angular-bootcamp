@@ -1,46 +1,70 @@
 <div id="search-container">
   <button type="submit"><i class="fa fa-search"></i></button>
-  <input type="search" [formControl]="search" (keyup.enter)="onKey($event)" name="search" id="search" placeholder="{{placeholder}}">
-  <div id="results" style="height:30px; text-align:center">
-      <span id="loading" style="display:none">Buscando...</span>
-      <span id="empty" style="display:none">No he encontrado nada.</span>
+  <input #search id="search" name="search" type="text" (keyup)="searchAll(search.value)" (keyup.enter)="searchEnter(search.value)" placeholder="{{placeholder}}">
+
+  <div id="results">
+      <ng-template [ngIf]="artists.length > 0">
+        <div class="results">
+          <p>Artists</p>
+          <ul>
+            <li *ngFor="let artist of artists">
+              <a href="#">
+                <div>
+                  <img [src]="artist.images | noimage" alt="{{artist.name}}">
+                  <h5>{{artist.name}}</h5>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="albums.length > 0">
+        <div class="results">
+          <p>Albums</p>
+          <ul>
+            <li *ngFor="let album of albums">
+              <a href="#">
+                <div>
+                  <img [src]="album.images | noimage" alt="{{album.name}}">
+                  <h5>{{album.name}}</h5>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="tracks.length > 0">
+          <div class="results">
+            <p>Tracks</p>
+            <ul>
+              <li *ngFor="let track of tracks">
+                <a href="#">
+                  <div>
+                    <img [src]="track.images | noimage" alt="{{track.name}}">
+                    <h5>{{track.name}}</h5>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </ng-template>
+    <div >
   </div>
 </div>
-{{search.value}}
 
-<script>
-  $(function(){
-      var $loading = $('#loading');
-      var $empty = $('#empty');
-      var $items = $("span");
 
-      $('#filter').on('input', function() {
-          var text = $(this).val().trim().toLowerCase();
-          if( text.length < 3 ) {
-              $items.hide();
-              $loading.hide();
-          } else {
-              $empty.hide();
-              $loading.show();
-              delay(function () {
-                  $items.hide();
-                  $("span[title*='" + text + "']").each(function () {
-                      $(this).show();
-                      $loading.hide();
-                  });
-                  if( $("span[title*='" + text + "']").length == 0 )
-                      $empty.show();
-              }, 1000);
-          }
-      });
 
-      // delay function
-      var delay = (function(){
-          var timer = 0;
-          return function(callback, ms){
-              clearTimeout (timer);
-              timer = setTimeout(callback, ms);
-          };
-      })();
-  });
-</script>
+
+</div>
+
+
+<!--
+<div id="results" *ngFor="let artist of artists">
+    <img [src]="artist.images | noimage" alt="">
+    <div >
+        <h5>{{artist.name}}</h5>
+        <span *ngFor="let item of artist.artists">{{item.name}}</span>
+    </div>
+  </div>
+
+-->

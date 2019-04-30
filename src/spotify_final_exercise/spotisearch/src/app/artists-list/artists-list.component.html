@@ -1,7 +1,7 @@
 <app-header-image></app-header-image>
 <section class="content">
   <h1>Artists</h1>
-  <h3>You are currently searching: ""</h3>
+  <h3>You are currently searching: "{{ term }}"</h3>
 
   <app-search [placeholder] = "placeholder"></app-search>
 
@@ -10,15 +10,23 @@
 
 <section class="content">
   <div id="artistsList">
+    <ng-template [ngIf]="artists.length > 0">
+      <button>&laquo; Previous</button>
 
-    <div id="artistItems">
-      <div class="artistItem">
-        <img src="" alt="Album">
-        <div class="description_item">
-          <h3>Artist name</h3>
+      <button *ngFor="let i of arrayPage" >{{i}}</button>
+
+      <button>Next &raquo;</button>
+      {{total}}
+
+      <div id="artistItems">
+        <div class="artistItem">
+          <img src="" alt="Album">
+          <div class="description_item">
+            <h3>Artist name</h3>
+          </div>
         </div>
       </div>
+    </ng-template>
 
-    </div>
   </div>
 </section>
