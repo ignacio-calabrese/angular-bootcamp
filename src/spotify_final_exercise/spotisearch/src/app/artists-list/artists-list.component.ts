@@ -20,9 +20,10 @@ export class ArtistsListComponent implements OnInit {
   paging: Paging;
   artists: Artist[] = [];
   num = 0;
-  offset: number;
-  total: number;
-  numPage: number;
+  limit = 0;
+  offset = 0;
+  total = 0;
+  numPage = 0;
   arrayPage = new Array();
 
 
@@ -37,7 +38,8 @@ export class ArtistsListComponent implements OnInit {
   ngOnInit() {
     this.term = this.route.snapshot.paramMap.get('term');
     this.getPagingArtists(this.term, this.num);
-
+   
+    
 
   }
 
@@ -47,41 +49,58 @@ export class ArtistsListComponent implements OnInit {
       distinctUntilChanged(),
       // map(data => data['artists'])
           ).subscribe((data: Paging): any => {
-            console.log(data['artists']);
+            // console.log(data);
             this.paging = data;
-            this.artists = <Artist[]> this.paging.items;
+            this.artists = <Artist[]>this.paging.items;
             this.total = this.paging.total;
             this.offset = this.paging.offset;
-            if (this.total % this.offset === 0) {
-              this.numPage = this.total / this.offset;
-            } else {
-              this.numPage = (this.total / this.offset) + 1;
+            this.limit = this.paging.limit;
+           if (this.total % this.limit == 0) {
+              this.numPage = this.total / this.limit;
+            } else if (this.total % this.limit > 0) {
+              this.numPage = Math.round(this.total / this.limit) + 1;
+            } else if (this.total % this.limit < 0) {
+              this.numPage = Math.round(this.total / this.limit) - 1;
             }
+            console.log( this.numPage );
             for ( let i = 0; i < this.numPage; i++) {
-                this.arrayPage.push(i);
-              }
-
+              this.arrayPage.push(i);
+            }
+            
+           
 
     });
   }
-
+  paginate(){
+    if (this.total % this.limit == 0) {
+      this.numPage = this.total / this.limit;
+    } else if (this.total % this.limit > 0) {
+      this.numPage = Math.round(this.total / this.limit) + 1;
+    } else if (this.total % this.limit < 0) {
+      this.numPage = Math.round(this.total / this.limit) - 1;
+    }
+    console.log( this.numPage );
+    for ( let i = 0; i < this.numPage; i++) {
+      this.arrayPage.push(i);
+    }
+  }
   getPreviousPage() {
-    this.num = this.num - this.offset;
+    this.num = this.offset - this.limit;
     if (this.num >= 0) {
       this.getPagingArtists(this.term, this.num);
     }
   }
 
   getNextPage() {
-    this.num = this.num + this.offset;
-    if (this.num <= (this.total - this.offset)) {
+    this.num = this.offset + this.limit;
+    if (this.num <= this.numPage) {
       this.getPagingArtists(this.term, this.num);
     }
   }
 
-  getPage(numPage: number) {
-    this.num = numPage * this.offset;
-    if (this.num >= 0 || this.num <= (this.total - this.offset)) {
+  getPage(page: number) {
+    this.num = page + this.offset;
+    if (this.num >= 0 || this.num <= this.numPage) {
       this.getPagingArtists(this.term, this.num);
     }
   }

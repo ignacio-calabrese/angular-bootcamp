@@ -45,7 +45,7 @@ export class SearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe((data): any => {
-          console.log(data);
+          // console.log(data);
           this.artists = data;
         });
   }
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe((data): any => {
-          console.log(data);
+          // console.log(data);
           this.albums = data;
         });
   }
@@ -66,7 +66,7 @@ export class SearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe((data): any => {
-          console.log(data);
+          // console.log(data);
           this.tracks = data;
         });
   }
