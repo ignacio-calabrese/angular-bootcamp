@@ -17,8 +17,8 @@ import { catchError, map, tap, switchMap} from 'rxjs/operators';
 
     export class SpotifyService {
     // tslint:disable-next-line:max-line-length
-    token = 'Bearer BQDh5y8CKTl58YSsyyJMvhoPCoy0Ffa04JtLYs3ofhgO9oBcpPr7YPN_GndcDWnghfUrJZGLTDIBzRlordKwlVkzCwcgfubH4ISoPpSG8_IJMBkB01PNCZoH6Igq3GOYHA6A2pLxnSEfgt5An9ZQyMTXxBsNA7FdeDug6SM';
-    private ClBQBLMP4H9pU9GWrDAjgvHiCKCNZIENT_ID = '90fdce3922ce4fc7b93e72cc89f05ccc';
+    token = 'Bearer BQDWAT-Y4BfCM8Az-dVW7_p9_iNHzgGb3Bvrkhycf86w7hzncKD_rzL5bAeATw3pYqjiyYOOFqkVkWfU-pVG3lSqtL9sgUR2M1psaXGEWT5bBk7z-9J_EoluvkeNrCU6BfzGvk7VtzAiAHLfmdhrnTNqMucf2S76bQ1pbRE';
+    private ClIENT_ID = '90fdce3922ce4fc7b93e72cc89f05ccc';
     private ClIENT_SECRET = '9661ba540c2b43b7961620baf4783fe5';
 
 
@@ -55,24 +55,43 @@ getTracks( term: string): Observable<Track[]> {
 }
 
 
- getAnArtist(artistId: string): Observable<Artist> {
-  return this.getQuery(`artists/${artistId}`).pipe(
-    switchMap(data => data['artists'].items)
-    );
- }
 
 
 getPagingArtists( term: string, num: number): Observable<Paging> {
   return this.getQuery(`search?q=${ term }&type=artist&offset=${num}&limit=20`).pipe(
-   map(data => data['artists'])
-  );
-}
+    map(data => data['artists'])
+    );
+  }
+  
+  getAnArtist(artistId: string): Observable<Artist> {
+    return this.getQuery(`artists/${artistId}`).pipe(
+      map(data => <Artist> data)
+      );
+  }
+
+  getAnArtistAlbums(artistId: string, num: number): Observable<Paging> {
+    return this.getQuery(`artists/${artistId}/albums?&offset=${num}&limit=20`).pipe(
+      map(data => <Paging> data)
+      );
+  }
+
+  getAnAlbum(albumId: string): Observable<Album> {
+    return this.getQuery(`albums/${albumId}`).pipe(
+      map(data => <Album> data)
+      );
+  }
+
+  getAnAlbumTracks(albumId: string, num: number): Observable<Paging> {
+    return this.getQuery(`albums/${albumId}/tracks?&offset=${num}&limit=20`).pipe(
+      map(data => <Paging> data)
+      );
+  }
 /*
 getToken() {
   const url = `https://accounts.spotify.com/api/token?grant_type=client_credentials`;
   const tokenHeaders = new HttpHeaders({
-    Content-Type: 'application/x-www-form-urlencoded' ,
-  Authorization: 'Basic <base64 encoded' + this.ClIENT_ID + ':' + this.ClIENT_SECRET + '>'
+    set(Content-Type: 'application/x-www-form-urlencoded');
+  "Authorization": 'Basic <base64 encoded' + this.ClIENT_ID + ':' + this.ClIENT_SECRET + '>'
   });
   return this.http.post(url, {tokenHeaders}).pipe(
     // debounceTime(3600)
@@ -80,9 +99,10 @@ getToken() {
     .subscribe((data): any => {
           console.log(data);
           this.token = data['token_type'] + ' ' + data['access_token'];
+          console.log(this.token);
         });
-  }
-*/
+  }*/
+
 
 }
 

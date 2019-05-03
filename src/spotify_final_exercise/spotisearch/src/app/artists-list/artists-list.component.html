@@ -12,21 +12,21 @@
   <div id="artistsList">
     <ng-template [ngIf]="artists.length > 0">
       <button (click)="getPreviousPage()">&laquo; Previous</button>
-      <div *ngFor="let i of arrayPage">
+      <span id="pagination" *ngFor="let i of arrayPage">
           <button  (click)="getPage(i)">{{i + 1}}</button>  
-        </div>
+      </span>
         <button (click)="getNextPage()">Next &raquo;</button>
 
-      {{total}}
+        <p>Total results: {{total}}</p>
 
       
       <div id="artistItems" *ngFor="let artist of artists">
         <div class="artistItem">
-              <a href="#">
+              <a [routerLink]="['/Artist', term, artist.id]">
                 <img [src]="artist.images | noimage" alt="{{artist.name}}">
-                <div class="description_item">
-                  <h3>{{artist.name}}</h3>
-                </div>
+                <span >
+                <h3 class="description_item">{{artist.name}}</h3>
+                </span>
               </a>
               </div>
             </div>

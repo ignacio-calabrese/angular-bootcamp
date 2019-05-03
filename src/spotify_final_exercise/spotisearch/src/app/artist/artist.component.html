@@ -1,10 +1,10 @@
 <app-header-image-search></app-header-image-search>
 
 <section class="content">
-    <img src="" alt="Album">
+    <img [src]="artist.images | noimage" alt="{{artist.name}}">
     <div class="description">
-      <h1>Artist name</h1>
-      <h3>Artist gender</h3>
+      <h1>{{artist.name}}</h1>
+      <h3>{{artist.genres.join(", ")}}</h3>
     </div>
 
 
@@ -14,16 +14,30 @@
 
 <section class="content">
   <div id="albumsList">
-
-    <div id="albumsItems">
+    <ng-template [ngIf]="albums.length > 0">
+      <button (click)="getPreviousPage()">&laquo; Previous</button>
+      <span id="pagination" *ngFor="let i of arrayPage">
+          <button  (click)="getPage(i)">{{i + 1}}</button>  
+      </span>
+        <button (click)="getNextPage()">Next &raquo;</button>
+  
+        <p>Total albums: {{total}}</p>
+  
+  
+    <div id="albumsItems"  *ngFor="let album of albums">
       <div class="albumsItem">
-        <img src="" alt="Album">
-        <div class="description">
-          <h3>Album name</h3>
-          <p>Album year</p>
-        </div>
+        <a [routerLink]="['/Album', term, album.id]">
+          <img [src]="album.images | noimage" alt="{{album.name}}">
+          <span class="description">
+            <h3>{{album.name}}</h3>
+            <p>{{album.release_date}}</p>
+          </span>
+        </a>
       </div>
-
+  
     </div>
+
+    </ng-template>
+
   </div>
 </section>

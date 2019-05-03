@@ -37,9 +37,25 @@ export class ArtistsListComponent implements OnInit {
 
   ngOnInit() {
     this.term = this.route.snapshot.paramMap.get('term');
-    this.getPagingArtists(this.term, this.num);
-   
-    
+    this.SpotifyService.getPagingArtists(this.term, this.num).pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+    ).subscribe((data: Paging): any => {
+          this.paging = data;
+          this.artists = <Artist[]>this.paging.items;
+          this.total = this.paging.total;
+          this.offset = this.paging.offset;
+          this.limit = this.paging.limit;
+         if (this.total % this.limit == 0) {
+            this.numPage = this.total / this.limit;
+          } else if (this.total % this.limit > 0) {
+            this.numPage = Math.trunc(this.total / this.limit) + 1;
+          } 
+          console.log( this.numPage );
+          for ( let i = 0; i < this.numPage; i++) {
+            this.arrayPage.push(i);
+          }
+    });
 
   }
 
@@ -47,59 +63,31 @@ export class ArtistsListComponent implements OnInit {
     this.SpotifyService.getPagingArtists(term, num).pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      // map(data => data['artists'])
-          ).subscribe((data: Paging): any => {
-            // console.log(data);
+      ).subscribe((data: Paging): any => {
             this.paging = data;
             this.artists = <Artist[]>this.paging.items;
             this.total = this.paging.total;
             this.offset = this.paging.offset;
             this.limit = this.paging.limit;
-           if (this.total % this.limit == 0) {
-              this.numPage = this.total / this.limit;
-            } else if (this.total % this.limit > 0) {
-              this.numPage = Math.round(this.total / this.limit) + 1;
-            } else if (this.total % this.limit < 0) {
-              this.numPage = Math.round(this.total / this.limit) - 1;
-            }
-            console.log( this.numPage );
-            for ( let i = 0; i < this.numPage; i++) {
-              this.arrayPage.push(i);
-            }
-            
-           
-
     });
   }
-  paginate(){
-    if (this.total % this.limit == 0) {
-      this.numPage = this.total / this.limit;
-    } else if (this.total % this.limit > 0) {
-      this.numPage = Math.round(this.total / this.limit) + 1;
-    } else if (this.total % this.limit < 0) {
-      this.numPage = Math.round(this.total / this.limit) - 1;
-    }
-    console.log( this.numPage );
-    for ( let i = 0; i < this.numPage; i++) {
-      this.arrayPage.push(i);
-    }
-  }
+ 
   getPreviousPage() {
-    this.num = this.offset - this.limit;
+    this.num = this.offset - 1;
     if (this.num >= 0) {
       this.getPagingArtists(this.term, this.num);
     }
   }
 
   getNextPage() {
-    this.num = this.offset + this.limit;
+    this.num = this.offset + 1;
     if (this.num <= this.numPage) {
       this.getPagingArtists(this.term, this.num);
     }
   }
 
   getPage(page: number) {
-    this.num = page + this.offset;
+    this.num = page;
     if (this.num >= 0 || this.num <= this.numPage) {
       this.getPagingArtists(this.term, this.num);
     }

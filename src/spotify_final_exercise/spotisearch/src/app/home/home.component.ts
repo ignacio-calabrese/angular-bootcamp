@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyService } from '../spotify-service.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   placeholder: string;
-  constructor() {
+  constructor(private SpotifyService : SpotifyService) {
     this.placeholder = 'Type the name of your favourite artist';
   }
 
   ngOnInit() {
+    // this.SpotifyService.getToken();
   }
 
 }

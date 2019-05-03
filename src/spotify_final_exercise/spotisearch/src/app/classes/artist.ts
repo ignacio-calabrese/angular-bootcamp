@@ -1,4 +1,5 @@
 import { URLs } from './urls';
+import { Images } from './images';
 
 export class Artist {
   external_urls: URLs; // Known external URLs for this artist.
@@ -7,5 +8,6 @@ export class Artist {
   name: string; // The name of the artist
   type: string; // The object type: "artist"
   uri: string; // The Spotify URI for the artist.
+  images: Images[]; 
 }
 

@@ -8,7 +8,7 @@
           <p>Artists</p>
           <ul>
             <li *ngFor="let artist of artists">
-              <a href="#">
+              <a [routerLink]="['/Artist', term, artist.id]">
                 <div>
                   <img [src]="artist.images | noimage" alt="{{artist.name}}">
                   <h5>{{artist.name}}</h5>
@@ -23,7 +23,7 @@
           <p>Albums</p>
           <ul>
             <li *ngFor="let album of albums">
-              <a href="#">
+              <a [routerLink]="['/Album', term, album.id]">
                 <div>
                   <img [src]="album.images | noimage" alt="{{album.name}}">
                   <h5>{{album.name}}</h5>
@@ -38,7 +38,7 @@
             <p>Tracks</p>
             <ul>
               <li *ngFor="let track of tracks">
-                <a href="#">
+                <a [routerLink]="['/Album', term, track.album.id]">
                   <div>
                     <img [src]="track.images | noimage" alt="{{track.name}}">
                     <h5>{{track.name}}</h5>

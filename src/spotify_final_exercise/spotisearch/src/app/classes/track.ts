@@ -2,8 +2,10 @@ import { Artist } from './artist';
 import { URLs } from './urls';
 import { LinkedTrack } from './linkedTrack';
 import { Restrictions } from './restrictions';
+import { Album } from './album';
 
 export class Track {
+  album: Album;
   artists: Artist[];
   available_markets: string[];
   disc_number: number;

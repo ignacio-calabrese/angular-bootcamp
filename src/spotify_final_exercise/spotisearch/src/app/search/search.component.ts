@@ -30,14 +30,18 @@ export class SearchComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.SpotifyService.getToken();
+    
 
   }
 
   searchAll(term: string) {
-    this.searchByArtists(term);
-    this.searchByAlbums(term);
-    this.searchByTracks(term);
+    if(this.placeholder == 'Type the name of your favourite artist'){
+      this.searchByArtists(term);
+      this.searchByAlbums(term);
+      this.searchByTracks(term);
+    } else {
+      this.searchByArtists(term);
+    }
   }
 
   searchByArtists(artists: string) {

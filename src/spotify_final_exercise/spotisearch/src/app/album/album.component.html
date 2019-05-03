@@ -1,10 +1,10 @@
 <app-header-image-search></app-header-image-search>
 
 <section class="content">
-    <img src="" alt="Album">
+    <img [src]="album.images | noimage" alt="{{album.name}}">
     <div class="description">
-      <h1>Album name</h1>
-      <h3>Artist name - Album year</h3>
+      <h1>{{album.name}}</h1>
+      <h3>{{album.artist.name}} - {{album.release_date}}</h3>
     </div>
 
     <nav>
@@ -20,21 +20,35 @@
 
 <section class="content">
   <div id="cdList">
+      <ng-template [ngIf]="discs.length > 0">
+        <div id="cdsTables">
+            <button (click)="getPreviousPage()">&laquo; Previous</button>
+            <span id="pagination" *ngFor="let i of arrayPage">
+                <button  (click)="getPage(i)">{{i + 1}}</button>  
+            </span>
+              <button (click)="getNextPage()">Next &raquo;</button>
+        
+              <p>Total tracks: {{total}}</p>
+              
+            <div >
+              <table class="cdsTable" *ngFor="let cd of discs">
+                <tr>
+                  <th colspan="3">CD {{ cd.disc_number}}</th>
+                </tr>
+                <tr *ngFor="let track of cd.tracks; index as i;">
+                  <td>{{track.track_number}}</td>
+                  <td class="songName">{{track.name}}</td> 
+                  <td class="addToFavourite">
+                      <i class='fas fa-star'></i>
+                      <i class='far'>&#xf005;</i>
+                  </td>
+                </tr>
+              </table>
 
-    <div id="cdsTables">
-      <table class="cdsTable">
-        <tr>
-          <th colspan="2">CD N°</th>
-        </tr>
-        <tr>
-          <td class="songName">Song name</td>
-          <td class="addToFavourite">
-              <i class='fas fa-star'></i>
-              <i class='far'>&#xf005;</i>
-          </td>
-        </tr>
-      </table>
+            </div>
+    
+        </div>
+      </ng-template>
 
-    </div>
   </div>
 </section>
