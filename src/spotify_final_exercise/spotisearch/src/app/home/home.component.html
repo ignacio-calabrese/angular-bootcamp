@@ -5,20 +5,22 @@
   <h3>Search your favourite songs over Spotify. Just enter an Artist´s name in the following search book and enjoy!</h3>
 
   <app-search [placeholder]= "placeholder"></app-search>
-
-  <div id="favourites">
-    <h2>Favourite Songs</h2>
-    <div id="favourite_items">
-      <div class="favourite_item">
-        <img src="" alt="Album">
-        <div class="description_item">
-          <h6>Song name</h6>
-          <p>Artist: artist name</p>
-          <p>Album: album name</p>
+ 
+  <ng-template [ngIf]="tracks.length > 0">
+    <div id="favourites" *ngFor="let track of tracks; index as i;">
+      <h2>Favourite Songs</h2>
+      <div id="favourite_items">
+        <div class="favourite_item">
+          <img [src]="track.album.images | noimage" alt="{{track.album.name}}">
+          <div class="description_item">
+            <h6>{{track.name}}</h6>
+            <p>Artist: {{track.album.arttists[0].name}}</p>
+            <p>Album: {{track.album.name}}</p>
+          </div>
         </div>
+  
       </div>
-
     </div>
-  </div>
+  </ng-template>
 
 </section>

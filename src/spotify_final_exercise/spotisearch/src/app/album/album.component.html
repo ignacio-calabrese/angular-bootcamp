@@ -4,15 +4,14 @@
     <img [src]="album.images | noimage" alt="{{album.name}}">
     <div class="description">
       <h1>{{album.name}}</h1>
-      <h3>{{album.artist.name}} - {{album.release_date}}</h3>
+      <h3>{{album.artists[0].name}} - {{album.release_date}}</h3>
     </div>
 
     <nav>
       <a [routerLink]="['/']">Home</a>
-      <a [routerLink]="['/Artists']">Artists</a>
-      <a [routerLink]="['/Artists/Artist']">Artist name</a>
-      <a [routerLink]="['/Artists/Artist/Album']">Album name</a>
-
+      <a [routerLink]="['/Artists' , term]">Artists</a>
+      <a [routerLink]="['/Artist', term, album.artists[0].id]">{{album.artists[0].name}}</a>
+      <a [routerLink]="['/Album', term, album.id]">{{album.name}}</a>
     </nav>
 
 </section>
@@ -39,8 +38,16 @@
                   <td>{{track.track_number}}</td>
                   <td class="songName">{{track.name}}</td> 
                   <td class="addToFavourite">
-                      <i class='fas fa-star'></i>
-                      <i class='far'>&#xf005;</i>
+                      <ng-template [ngIf]="isFavouriteTrack(track.id) == false">
+                        <button (click)="addToFavouriteTrack(track.id)">
+                          <i class='far'>&#xf005;</i>
+                        </button>
+                      </ng-template>
+                      <ng-template [ngIf]="isFavouriteTrack(track.id)">
+                        <button (click)="removeToFavoriteTrack(track.id)">
+                          <i class='fas fa-star'></i>
+                        </button>
+                        </ng-template>
                   </td>
                 </tr>
               </table>

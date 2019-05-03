@@ -29,6 +29,8 @@ export class AlbumComponent implements OnInit {
   numPage = 0;
   arrayPage = new Array();
   
+  favorites ; // = JSON.parse(localStorage.getItem('favorites')) || [];
+
 
   constructor(private SpotifyService: SpotifyService,
     private route: ActivatedRoute,
@@ -65,7 +67,10 @@ export class AlbumComponent implements OnInit {
           for ( let i = 0; i < this.numPage; i++) {
             this.arrayPage.push(i);
           }
-  });
+    });
+    
+    this.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
   }
 
   getAnAlbumTracks(idAlbum: string, num: number) {
@@ -105,24 +110,67 @@ export class AlbumComponent implements OnInit {
   }
 
   orderByDisc(tracks: Track[]){
-  //let disc = Disc;
-  let numberDisc = 1;
-  let numberTrack=0;
-  let discTracks: Track[] = [];
-  
-  for (let i = 0; i < tracks.length; i++) {
-    if (numberDisc == tracks[i].disc_number) {
-      if (numberTrack != tracks[i].track_number) {
-        discTracks.push(tracks[i]);
-        numberTrack++;
-      } 
-      this.discs.push(new Disc(numberDisc, discTracks));
-    } else if (numberDisc != tracks[i].disc_number) {
-      numberDisc++;
-    }
-    console.log(this.discs);
+    let disc = Disc;
+    let numberDisc = 1;
+    let numberTrack=0;
+    let discTracks: Track[] = [];
     
+    this.discs.push( new Disc(numberDisc, discTracks));
+    for (let i = 0; i < tracks.length; i++) {
+      if (numberDisc == tracks[i].disc_number) {
+        //if (numberTrack != tracks[i].track_number) {
+          discTracks.push(tracks[i]);
+        // numberTrack++;
+        //} 
+        
+        // this.discs.push( new Disc(numberDisc, discTracks));
+      } else if (numberDisc != tracks[i].disc_number) {
+        numberDisc++;  
+      }
+      console.log(this.discs);
+    }
   }
+
+  store() {
+    if (window.localStorage) {
+      if (localStorage.length > 0) {
+        return true;
+      } else if (localStorage == null){
+        return false;
+      }
+      
+    }
+  }
+
+  addToFavouriteTrack(idTrack: string): void {
+    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+
+    this.favorites.push(idTrack);
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  }
+  removeToFavoriteTrack(idTrack: string): void {
+    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+
+    this.favorites.remove(idTrack);
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  }
+
+  isFavouriteTrack(idTrack: string): boolean {
+    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+    if (this.favorites == null) {
+      return false;
+    } else {
+      for (let i = 0; i < this.favorites.length; i++) {
+        if (this.favorites[i] == idTrack) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
   
   }
+
+
+
 }

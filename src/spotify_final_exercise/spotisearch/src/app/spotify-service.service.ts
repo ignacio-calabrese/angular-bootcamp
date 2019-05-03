@@ -17,7 +17,7 @@ import { catchError, map, tap, switchMap} from 'rxjs/operators';
 
     export class SpotifyService {
     // tslint:disable-next-line:max-line-length
-    token = 'Bearer BQDWAT-Y4BfCM8Az-dVW7_p9_iNHzgGb3Bvrkhycf86w7hzncKD_rzL5bAeATw3pYqjiyYOOFqkVkWfU-pVG3lSqtL9sgUR2M1psaXGEWT5bBk7z-9J_EoluvkeNrCU6BfzGvk7VtzAiAHLfmdhrnTNqMucf2S76bQ1pbRE';
+    token = 'Bearer BQDvDpfx_m-Z4ldVZccSXQlui8xc3DTdR9PBad29gIRz3A9dqq2P3H8-dAXvsbDr6ok2Gp9AScXf_vaG76YGC9tj3XQUEKQtIOpkM44KqdEjF7pnziJMkRvRpDjLSGCWloLZqMhjejkj-U8EByCQ2AeILR0Gdlk2vnxjX-8';
     private ClIENT_ID = '90fdce3922ce4fc7b93e72cc89f05ccc';
     private ClIENT_SECRET = '9661ba540c2b43b7961620baf4783fe5';
 
@@ -84,6 +84,12 @@ getPagingArtists( term: string, num: number): Observable<Paging> {
   getAnAlbumTracks(albumId: string, num: number): Observable<Paging> {
     return this.getQuery(`albums/${albumId}/tracks?&offset=${num}&limit=20`).pipe(
       map(data => <Paging> data)
+      );
+  }
+
+  getATrack(trackId: string): Observable<Track> {
+    return this.getQuery(`tracks/${trackId}`).pipe(
+      map(data => <Track> data)
       );
   }
 /*

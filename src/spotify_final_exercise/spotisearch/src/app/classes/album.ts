@@ -6,7 +6,7 @@ import { Restrictions } from './restrictions';
 
 export class Album {
   album_type: string;
-  artists: Artist; // simplified artist objects
+  artists: Artist[]; // simplified artist objects
   available_markets: string[];
   // copyrights:	copyright; // copyright objects,
   // external_ids:IDs; // an external ID object	Known external IDs for the album.
