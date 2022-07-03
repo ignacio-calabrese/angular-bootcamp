@@ -17,9 +17,9 @@ import { catchError, map, tap, switchMap} from 'rxjs/operators';
 
     export class SpotifyService {
     // tslint:disable-next-line:max-line-length
-    token = 'Bearer BQDvDpfx_m-Z4ldVZccSXQlui8xc3DTdR9PBad29gIRz3A9dqq2P3H8-dAXvsbDr6ok2Gp9AScXf_vaG76YGC9tj3XQUEKQtIOpkM44KqdEjF7pnziJMkRvRpDjLSGCWloLZqMhjejkj-U8EByCQ2AeILR0Gdlk2vnxjX-8';
-    private ClIENT_ID = '90fdce3922ce4fc7b93e72cc89f05ccc';
-    private ClIENT_SECRET = '9661ba540c2b43b7961620baf4783fe5';
+    token = 'Bearer TOKEN';
+    private ClIENT_ID = 'ClIENT_ID';
+    private ClIENT_SECRET = 'ClIENT_SECRET';
 
 
   constructor(private http: HttpClient) {
